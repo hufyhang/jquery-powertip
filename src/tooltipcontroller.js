@@ -143,14 +143,20 @@ function TooltipController(options) {
 				// check activeHover in case the mouse cursor entered the
 				// tooltip during the fadeOut and close cycle
 				if (session.activeHover) {
-					session.activeHover.data(DATA_DISPLAYCONTROLLER).cancel();
+					var ctrl = session.activeHover.data(DATA_DISPLAYCONTROLLER);
+					if (ctrl && typeof ctrl.cancel === 'function') {
+						ctrl.cancel();
+					}
 				}
 			});
 			tipElement.on('mouseleave' + EVENT_NAMESPACE, function tipMouseLeave() {
 				// check activeHover in case the mouse cursor left the tooltip
 				// during the fadeOut and close cycle
 				if (session.activeHover) {
-					session.activeHover.data(DATA_DISPLAYCONTROLLER).hide();
+					var ctrl = session.activeHover.data(DATA_DISPLAYCONTROLLER);
+					if (ctrl && typeof ctrl.hide === 'function') {
+						ctrl.hide();
+					}
 				}
 			});
 		}

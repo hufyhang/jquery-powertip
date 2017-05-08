@@ -143,7 +143,10 @@ function DisplayController(element, options, tipController) {
 		// it to close immediately so we can proceed without unexpected timeout
 		// code being run during this tooltip's lifecycle
 		if (session.delayInProgress && session.activeHover && !session.activeHover.is(element)) {
-			session.activeHover.data(DATA_DISPLAYCONTROLLER).hide(true);
+			var ctrl = session.activeHover.data(DATA_DISPLAYCONTROLLER);
+			if (ctrl && typeof ctrl.hide === 'function') {
+				ctrl.hide(true);
+			}
 		}
 	}
 
